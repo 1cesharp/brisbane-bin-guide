@@ -1,0 +1,73 @@
+<h2>Skip bin size calculator — what size skip do I need?</h2>
+
+<p>Guessing your skip size is how people end up paying for a second bin or watching a 4&nbsp;m³ skip sit half-empty. This calculator converts what you're actually throwing out — wheelbarrow loads, trailer loads and bulky items — into cubic metres, then recommends a bin size with sensible headroom. It covers the common Australian sizes: 2, 3, 4, 6, 8 and 10&nbsp;m³.</p>
+
+<div id="skip_size_calculator_widget" style="border:1px solid #ccc;border-radius:8px;padding:16px;max-width:640px;background:#f9f9f7">
+  <h3 style="margin-top:0">Estimate your waste volume</h3>
+  <label for="skip_size_calculator_barrow">Wheelbarrow loads: <input id="skip_size_calculator_barrow" type="number" min="0" max="200" value="0" style="width:70px"></label>
+  <p style="margin:4px 0;font-size:0.85em;color:#555">One heaped standard barrow ≈ 0.07&nbsp;m³.</p>
+  <label for="skip_size_calculator_trailer">Box trailer loads (6×4): <input id="skip_size_calculator_trailer" type="number" min="0" max="50" value="0" style="width:70px"></label>
+  <p style="margin:4px 0;font-size:0.85em;color:#555">One 6×4 trailer, sensibly loaded ≈ 0.8&nbsp;m³.</p>
+  <fieldset style="border:none;margin:8px 0">
+    <legend><strong>Bulky items (tick all that apply)</strong></legend>
+    <label><input type="checkbox" id="skip_size_calculator_couch"> Couch / lounge (≈2.5&nbsp;m³)</label><br>
+    <label><input type="checkbox" id="skip_size_calculator_mattress"> Mattress (≈0.5&nbsp;m³)</label><br>
+    <label><input type="checkbox" id="skip_size_calculator_fridge"> Fridge (≈0.7&nbsp;m³)</label><br>
+    <label><input type="checkbox" id="skip_size_calculator_heavy"> Mostly soil, brick, concrete or rubble</label>
+  </fieldset>
+  <button id="skip_size_calculator_go" type="button" onclick="skipSizeCalc()">Calculate</button>
+  <p id="skip_size_calculator_out" style="font-weight:bold;margin:12px 0 4px">Estimated volume: 0 m³ — add your loads above.</p>
+  <p id="skip_size_calculator_bin" style="margin:4px 0"></p>
+  <p id="skip_size_calculator_warn" style="color:#8a4b00;margin:4px 0;display:none"></p>
+</div>
+
+<script>
+function skipSizeCalc(){
+  var b=+document.getElementById('skip_size_calculator_barrow').value||0;
+  var t=+document.getElementById('skip_size_calculator_trailer').value||0;
+  var v=b*0.07+t*0.8;
+  if(document.getElementById('skip_size_calculator_couch').checked)v+=2.5;
+  if(document.getElementById('skip_size_calculator_mattress').checked)v+=0.5;
+  if(document.getElementById('skip_size_calculator_fridge').checked)v+=0.7;
+  v=Math.round(v*10)/10;
+  var sizes=[2,3,4,6,8,10],pick=null;
+  for(var i=0;i<sizes.length;i++){if(v*1.2<=sizes[i]){pick=sizes[i];break;}}
+  var out=document.getElementById('skip_size_calculator_out');
+  var bin=document.getElementById('skip_size_calculator_bin');
+  var warn=document.getElementById('skip_size_calculator_warn');
+  out.textContent='Estimated volume: '+v+' m³';
+  if(!pick){bin.textContent='Over 10 m³ — you\'ll need more than one skip or a larger roll-on container.';}
+  else{bin.textContent='Recommended bin: '+pick+' m³ skip (about '+Math.round((pick/v-1)*100)+'% headroom so you don\'t overfill).';}
+  var heavy=document.getElementById('skip_size_calculator_heavy').checked||document.getElementById('skip_size_calculator_fridge').checked;
+  warn.style.display=heavy?'block':'none';
+  if(heavy){warn.textContent='Weight warning: skips are priced by volume but limited by weight. Soil, brick and concrete are roughly 1.5–2 tonnes per m³ — a 2 m³ bin of soil can hit 3+ tonnes. Many providers ban or surcharge heavy waste in standard bins, so ask for a dedicated heavy-waste bin. Fridges also need degassing/gas removal at some facilities.';}
+}
+</script>
+
+<h3>How this is worked out</h3>
+<ul>
+  <li>Wheelbarrow = 0.07&nbsp;m³ heaped; 6×4 box trailer = 0.8&nbsp;m³ sensibly loaded.</li>
+  <li>Bulky items use typical loose volumes: couch 2.5&nbsp;m³, mattress 0.5&nbsp;m³, fridge 0.7&nbsp;m³.</li>
+  <li>We add ~20% headroom, because skips should never be filled above the rim and loose junk always stacks worse than you expect.</li>
+  <li>Estimates are for general household/mixed waste. Volumes vary — when you're between sizes, go up.</li>
+</ul>
+
+<p><em>Embeddable widget:</em> this calculator is a self-contained HTML block with no external dependencies — site owners can copy the <code>div</code> and <code>script</code> above straight into any page.</p>
+
+<h3>What size skip do I need? — FAQ</h3>
+<dl>
+<dt>What size skip do I need for a kitchen renovation?</dt>
+<dd>A small kitchen strip-out (cabinets, benchtop, old appliances) typically fills 4–6&nbsp;m³. Add tile or rubble and weight becomes the limit, not volume.</dd>
+<dt>How much fits in a 2&nbsp;m³ skip?</dt>
+<dd>Roughly 8–10 wheelbarrow loads, or a couple of trailer loads — suits a small garden clean-up or one room of decluttering.</dd>
+<dt>Should I size up or down if I'm between sizes?</dt>
+<dd>Size up. Overfilled skips can't be legally transported and drivers will refuse collection or ask you to offload.</dd>
+<dt>Can I put soil or concrete in a general skip?</dt>
+<dd>Usually no, or only in limited quantities. Heavy waste needs a purpose-rated bin — check our council and provider pages before booking.</dd>
+</dl>
+
+<h3>Related on this site</h3>
+<ul>
+<li><a href="/councils/">Council clean-up and hard waste collection guides</a></li>
+<li><a href="/research/which-bin-basics.html">Which bin? The basics of red, yellow and green lids</a></li>
+</ul>

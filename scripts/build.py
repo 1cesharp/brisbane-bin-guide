@@ -144,11 +144,14 @@ def resolve_block(key: str, render: str, cfg) -> str:
         for r in rows:
             lines.append(f"| [{r['council']}]({r['url']}) | {r['permit']} | {r['fee']} | {r['price']} |")
         return md("\n".join(lines))
+    fname, _, ck = key.partition(":")
+    if fname.endswith(".html"):
+        # raw HTML fragment file (GLM tool lane)
+        val = (DATA / fname).read_text()
+        return val  # render hint ignored: trusted, already HTML
     if key.startswith("@"):
-        name = key[1:]
-        val = load_yaml(DATA / "research.yaml").get(name)
+        val = load_yaml(DATA / "research.yaml").get(key[1:])
     else:
-        fname, _, ck = key.partition(":")
         val = load_yaml(DATA / fname).get(ck)
     if val is None:
         raise SystemExit(f"block {key} not found")

@@ -1,0 +1,85 @@
+- slug: skip-size-calculator
+  title: Skip bin size calculator — what size skip do I need?
+  meta_description: Enter your junk pile in wheelbarrow or trailer loads and get the
+    skip bin size in cubic metres — with the size you'll actually be told to book.
+  kind: calculator
+  plan: 'Build an interactive skip size calculator: inputs = number of wheelbarrow
+    loads,
+
+    trailer loads, bulky items (couch, mattress, fridge) ticked; output = estimated
+    m³,
+
+    recommended bin size (2/3/4/6/8/10m³) with headroom advice, and weight warning
+    for
+
+    heavy waste. Include an embeddable widget note and an FAQ block targeting
+
+    "what size skip do I need" long-tail.
+
+    '
+  status: done
+- slug: skip-permit-cost-calculator
+  title: Skip permit cost calculator — will you need one and what will it cost?
+  meta_description: Answer where the skip will sit and how long you need it; get whether
+    a Brisbane-area council permit is needed and what to budget.
+  kind: calculator
+  plan: 'Interactive decision tool: placement (driveway/street/nature strip), council
+
+    dropdown (5 SEQ councils), duration. Output = permit needed y/n, cost guidance
+
+    (linked to council page; ''not yet verified'' if fee unverified), application
+
+    lead-time advice. Data feeds from data/councils/*.yaml so it stays in sync.
+
+    '
+  status: queued
+- slug: wheelie-bin-volume-guide
+  title: 'Wheelie bin sizes and volumes: 80L vs 120L vs 240L vs 360L'
+  meta_description: Litres to junk maths for every wheelie bin size, with real-world
+    equivalents and a printable capacity cheat sheet.
+  kind: reference
+  plan: 'Reference page with an inline converter (litres -> wheelbarrows -> trailer
+    loads).
+
+    Evergreen explainer; cross-links the skip size calculator.
+
+    '
+  status: queued
+- slug: council-fee-comparison
+  title: SEQ council waste fees compared (where published)
+  meta_description: Published council waste fees side by side — only figures with
+    an official source; gaps shown as not-yet-verified.
+  kind: data-table
+  plan: 'Data table generated from data/councils/*.yaml fee fields (each row cites
+    its
+
+    council source URL; unverified ones show a badge). Auto-updates as nightly
+
+    research fills fees. This is the ''boring table people screenshot'' page.
+
+    '
+  status: queued
+- slug: how-long-does-a-skip-take-to-fill
+  title: How long does a skip take to fill? Renovation timelines by project size
+  meta_description: 'Bathroom reno, garden cleanup, garage clearout: how many days
+    each fill takes and whether hire periods line up.'
+  kind: reference
+  plan: 'Guide with a simple fill-time estimator (rooms/projects -> days), internal
+    links
+
+    to calculators and council pages. Adds dwell time; targets reno-season queries.
+
+    '
+  status: queued
+- slug: fogo-council-rollout-tracker
+  title: 'FOGO rollout tracker: which SEQ councils are doing food scraps in green
+    bins'
+  meta_description: Status of FOGO (food organics + garden organics) rollouts across
+    south-east Queensland councils, with official sources.
+  kind: data-table
+  plan: 'Tracker table: council | FOGO status | source URL | last checked. Grok verifies
+
+    status per council in the weekly pass. FOGO confusion is a proven pain driver.
+
+    '
+  status: queued

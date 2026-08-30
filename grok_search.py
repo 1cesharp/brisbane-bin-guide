@@ -63,6 +63,25 @@ Requirements:
 Output ONLY the page body markdown.
 """
 
+PROMPTS["products"] = """You are researching monetisable product angles for an Australian solo operator who runs boring niche websites (currently: bin days, recycling, skip bins in Brisbane/SEQ) with an agent workforce. Today is {today}.
+
+Mission: find 3-5 "boring but necessary" physical or digital products with demonstrable daily search demand that could be dropshipped from AU-friendly suppliers or sold as digital downloads, where existing marketing is weak (bad SEO pages, no comparison content, ugly or nonexistent tools) - a 10x-marketing arbitrage opportunity.
+
+Method (use web + X search for CURRENT evidence):
+1. Demand: long-tail searches people actually type daily; quote recent complaints/posts of people wanting the product but having had a bad buying experience (with platform + date).
+2. Suppliers: AliExpress/Alibaba or Australian wholesalers; unit cost and MOQ with the listing URL. NEVER invent prices; if unavailable say so.
+3. Retail gap: what incumbents charge (with URL), and where the margin might sit.
+4. 10x angle: exactly what we would build (calculator/comparison/bundle/content) to out-market the weak incumbents.
+
+Avoid: regulated goods (electrical, therapeutic/supplement claims, food), counterfeit risk, saturated trivia (phone cases, fidget toys). Prefer adjacency to the operator's existing audience: waste, garden, home organisation, tools, pets, moving house.
+
+Output markdown, one block per product:
+## <product name>
+Demand evidence / Supplier + unit cost (URL) / Retail gap (URL) / 10x marketing angle / Risks
+End with ## Ranking (table: product | evidence strength | est. margin | build effort | verdict go/hold)
+Flag anything you could not verify as unverified. Do not fabricate.
+"""
+
 
 def token() -> str:
     d = json.load(open(AUTH))
@@ -112,6 +131,10 @@ def main() -> None:
         from datetime import date
 
         prompt = prompt.format(today=date.today().isoformat(), topic=topic.strip(), angle=angle.strip() or "none")
+    elif task == "products":
+        from datetime import date
+
+        prompt = prompt.format(today=date.today().isoformat())
     elif extra:
         prompt = prompt + "\n\nAdditional context from operator:\n" + extra
     try:

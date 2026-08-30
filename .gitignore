@@ -4,3 +4,4 @@
 /meta/build-state.json
 research_run.log
 __pycache__/
+.env.local

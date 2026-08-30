@@ -76,3 +76,10 @@
   blocks:
   - key: pages/brisbane-city-council-bin-collection-calendar-public-holiday.yaml:body
     render: markdown
+- path: tools/skip-size-calculator.html
+  h1: Skip bin size calculator — what size skip do I need?
+  meta_description: Enter your junk pile in wheelbarrow or trailer loads and get the
+    skip bin size in cubic metres — with the size you'll actually be told to book.
+  blocks:
+  - key: tools/skip-size-calculator.html:body
+    render: raw
