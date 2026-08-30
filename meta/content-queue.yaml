@@ -1,67 +1,78 @@
 - path: index.html
   layout: page
-  h1: "Bin days, which bin & skip permits — Brisbane & surrounds"
-  meta_description: "Bin collection days, which bin for what, hard rubbish dates, drop-off points and skip permits for every Brisbane-area council. Free, sourced, checked nightly."
+  h1: Bin days, which bin & skip permits — Brisbane & surrounds
+  meta_description: Bin collection days, which bin for what, hard rubbish dates, drop-off
+    points and skip permits for every Brisbane-area council. Free, sourced, checked
+    nightly.
   blocks:
-    - key: home.yaml:welcome
-      render: markdown
-    - key: home.yaml:value_props
-      render: list
-
+  - key: home.yaml:welcome
+    render: markdown
+  - key: home.yaml:value_props
+    render: list
 - path: councils/index.html
   layout: page
-  h1: "Councils — bin days, rules & permits"
-  meta_description: "Bin collection, recycling rules, hard rubbish and skip permits by south-east Queensland council."
+  h1: Councils — bin days, rules & permits
+  meta_description: Bin collection, recycling rules, hard rubbish and skip permits
+    by south-east Queensland council.
   blocks:
-    - key: councils-index.yaml:intro
-      render: markdown
-    - key: "@council_table"
-      render: table
-
+  - key: councils-index.yaml:intro
+    render: markdown
+  - key: '@council_table'
+    render: table
 - path: research/why-are-skip-bins-expensive.html
   layout: page
-  h1: "Why is hiring a skip bin so expensive?"
-  meta_description: "The six cost drivers behind skip bin prices — weight, landfill levies, fuel, council permits, demand and bin size maths."
+  h1: Why is hiring a skip bin so expensive?
+  meta_description: The six cost drivers behind skip bin prices — weight, landfill
+    levies, fuel, council permits, demand and bin size maths.
   blocks:
-    - key: "@why_expensive"
-      render: markdown
-
+  - key: '@why_expensive'
+    render: markdown
 - path: research/skip-vs-junk-removal.html
   layout: page
-  h1: "Skip bin vs junk removal service"
-  meta_description: "Skip bin or man-and-truck junk removal? Cost, labour, speed and when each option wins."
+  h1: Skip bin vs junk removal service
+  meta_description: Skip bin or man-and-truck junk removal? Cost, labour, speed and
+    when each option wins.
   blocks:
-    - key: "@skip_vs_removal"
-      render: markdown
-
+  - key: '@skip_vs_removal'
+    render: markdown
 - path: research/where-does-skip-waste-go.html
   layout: page
-  h1: "Where does your skip bin waste actually go?"
-  meta_description: "Landfill, recycling and resource recovery: what happens after your skip is collected, and how to keep costs down."
+  h1: Where does your skip bin waste actually go?
+  meta_description: 'Landfill, recycling and resource recovery: what happens after
+    your skip is collected, and how to keep costs down.'
   blocks:
-    - key: "@waste_destination"
-      render: markdown
-
+  - key: '@waste_destination'
+    render: markdown
 - path: research/how-fast-delivery.html
   layout: page
-  h1: "How fast can a skip bin be delivered?"
-  meta_description: "Same-day and next-day skip delivery: what is realistic in Brisbane, and what makes delivery slow down."
+  h1: How fast can a skip bin be delivered?
+  meta_description: 'Same-day and next-day skip delivery: what is realistic in Brisbane,
+    and what makes delivery slow down.'
   blocks:
-    - key: "@delivery_speed"
-      render: markdown
-
+  - key: '@delivery_speed'
+    render: markdown
 - path: research/which-bin-basics.html
   layout: page
-  h1: "Which bin? The Brisbane basics (red, yellow, green)"
-  meta_description: "What goes in each Brisbane bin, the top confusing items, and why recycling rules differ street by street."
+  h1: Which bin? The Brisbane basics (red, yellow, green)
+  meta_description: What goes in each Brisbane bin, the top confusing items, and why
+    recycling rules differ street by street.
   blocks:
-    - key: "@which_bin_basics"
-      render: markdown
-
+  - key: '@which_bin_basics'
+    render: markdown
 - path: research/missed-bin-collection.html
   layout: page
-  h1: "Missed bin collection — what to do in Brisbane"
-  meta_description: "Missed bin pickup? Report it to your council, the cutoff times that decide if you wait a week, and why missed collections spike."
+  h1: Missed bin collection — what to do in Brisbane
+  meta_description: Missed bin pickup? Report it to your council, the cutoff times
+    that decide if you wait a week, and why missed collections spike.
   blocks:
-    - key: "@missed_bin"
-      render: markdown
+  - key: '@missed_bin'
+    render: markdown
+- path: guides/brisbane-city-council-bin-collection-calendar-public-holiday.html
+  h1: 'Brisbane City Council bin collection calendar: public holiday changes and how
+    to check your day'
+  meta_description: 'Brisbane City Council bin collection calendar: public holiday
+    changes and how to check your day — Brisbane Bin Guide, updated 2026-08-30 with
+    sources.'
+  blocks:
+  - key: pages/brisbane-city-council-bin-collection-calendar-public-holiday.yaml:body
+    render: markdown

@@ -47,6 +47,23 @@ Output format (markdown):
 """
 
 
+PROMPTS["page"] = """You are researching ONE page for Brisbane Bin Guide, a free Australian reference site about bin days, recycling rules, hard rubbish and skip permits (Brisbane / south-east Queensland focus). Today is {today}.
+
+Page topic: {topic}
+Angle/guardrails: {angle}
+
+Requirements:
+1. Use X search and web search to gather CURRENT, real information. Australian council sources (brisbane.qld.gov.au, logan.qld.gov.au, moretonbay.qld.gov.au, goldcoast.qld.gov.au, ipswich.qld.gov.au, qld.gov.au, data.qld.gov.au) outrank blogs.
+2. EVERY factual claim in your output must be traceable to a specific URL you actually saw. End with a "### Source register" numbered list of those URLs.
+3. NEVER invent figures (fees, dates, quantities). If a number cannot be verified, write "not yet verified" next to it and explain what to check.
+4. If recent X/Reddit posts illustrate the pain point, cite them with platform + handle + approximate date. Do not fabricate posts.
+5. Write for a resident doing a chore right now: direct, practical, no fluff. 400-700 words. Markdown with ## sections. Include a practical "what to do" section.
+6. If you cannot verify the core of the topic, output "RESEARCH_FAILED: <one line why>" and nothing else.
+
+Output ONLY the page body markdown.
+"""
+
+
 def token() -> str:
     d = json.load(open(AUTH))
     return d["providers"]["xai-oauth"]["tokens"]["access_token"]
@@ -89,7 +106,13 @@ def main() -> None:
     if prompt is None:
         print(f"unknown task {task}; have: {', '.join(PROMPTS)}")
         sys.exit(2)
-    if extra:
+    if task == "page":
+        # extra = "TOPIC :: ANGLE"
+        topic, _, angle = extra.partition("::")
+        from datetime import date
+
+        prompt = prompt.format(today=date.today().isoformat(), topic=topic.strip(), angle=angle.strip() or "none")
+    elif extra:
         prompt = prompt + "\n\nAdditional context from operator:\n" + extra
     try:
         r = run(prompt)
