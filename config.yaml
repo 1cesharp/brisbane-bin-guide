@@ -1,0 +1,11 @@
+---
+# Directory site engine config. Nightly agent edits data/*.yaml + meta/content-queue.yaml,
+# then runs scripts/build.py. Never hand-edit site/ — it's generated.
+site_name: "Brisbane Bin Guide"
+domain: "1cesharp.github.io/brisbane-bin-guide"   # provisional; update after custom domain if ever
+base_url: "https://1cesharp.github.io/brisbane-bin-guide"
+tagline: "Bin days, which bin, hard rubbish and skip permits for every Brisbane-area council — checked nightly."
+currency: "AUD"
+affiliate_disclosure: >-
+  Some links may earn us a commission. We only list providers we have verified data for,
+  and price/permit facts are always free to read.

@@ -1,0 +1,15 @@
+# -*- coding: yaml -*-
+# --- Homepage body pieces (consumed via meta/content-queue.yaml) ---
+welcome: |
+  **Which bin? When's collection? Where's the drop-off?** Answers for every
+  Brisbane-area council — the weekly chores nobody explains properly.
+
+  Start with your council:
+
+  [Council index →](/councils/)
+value_props:
+  - "**Bin days** — collection calendars and public-holiday changes, council by council."
+  - "**Which bin** — what goes in red/yellow/green, FOGO rollouts, the confusing items."
+  - "**Hard rubbish** — kerbside collection dates and bookable pickups."
+  - "**Skip permits** — when your council wants one for a bin on the street, and what it costs."
+  - "**Drop-offs** — transfer stations, e-waste, battery and chemical drop points."

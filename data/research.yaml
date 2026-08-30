@@ -1,0 +1,154 @@
+# -*- coding: yaml -*-
+# Inline content for research pages. Sourced claims carry bracketed refs to
+# the Source register; opinion/general-knowledge passages are plainly worded.
+why_expensive: |
+  Skip bin hire looks like "paying for a big steel box", so the price feels inflated.
+  In reality six costs stack up:
+
+  1. **Landfill disposal is charged by weight.** The hire covers delivery and pickup;
+     disposal is metered at the tip gate. Queensland landfill levies make the per-tonne
+     gate fee a large share of the total [1].
+  2. **Weight, not volume, is the cliff.** Bins have tonne allowances; concrete, soil
+     and tile loads blow through them quickly. Heavy-waste bins cost more than
+     general-waste bins of the same size [2].
+  3. **Levies differ by council area and facility.** Where your junk is weighed and
+     dumped changes the gate price, which is why identical bins can differ across a
+     council border [1].
+  4. **Fuel and truck time.** One delivery + one pickup trip per job, with urban
+     congestion pricing in the labour.
+  5. **Permits.** If the bin sits on the street or nature strip, the council charges
+     a permit fee on top — Brisbane included [3].
+  6. **Demand spikes.** Pre-Christmas and pre-storm-season weeks see prices firm up.
+
+  **How to pay less:** sort heavy material out of general waste, pick the smallest
+  bin you can realistically fill (overfilling = over-weight charges), keep the bin
+  on your own property to skip the permit, and compare at least two providers.
+
+  ### Source register
+  1. [Queensland waste levy — Business Queensland](https://www.business.qld.gov.au/running-business/environment/waste-management/waste-levy)
+  2. [Skip bin waste types explained](/research/skip-vs-junk-removal.html)
+  3. [Brisbane City Council skip bin permits](https://www.brisbane.qld.gov.au/planning-and-building/building-and-renovating/skip-bins)
+
+skip_vs_removal: |
+  Two ways to clear junk: a **skip bin** you fill yourself, or a **junk removal crew**
+  that loads and takes it away the same visit.
+
+  | | Skip bin | Junk removal service |
+  |---|---|---|
+  | You do the loading | Yes | No — crew loads |
+  | Typical cost driver | Size (m³) + waste type | Volume of items + labour time |
+  | Best for | Renovations, gradual cleanups, heavy loads staged over days | Single-room cleanouts, furniture, same-day urgency |
+  | Timing | Bin sits for days (hire period) | One visit, usually 1–2 hours |
+  | Heavy material | Fine (within weight limits) | Often priced at premium |
+  | Space needed | Driveway or (permitted) street spot | Just a truck park |
+
+  **Rule of thumb:** junk removal wins on speed and zero labour; a skip wins on price
+  per cubic metre once you're above a ute-tray of stuff, and for anything heavy.
+  Get both quotes if your job is either very small or very large — the crossover
+  point surprises people.
+
+  *No sourced price figures on this page yet — nightly research adds verified
+  provider price bands.*
+
+waste_destination: |
+  Your bin leaves on a truck and the load is **weighed and sorted at a transfer
+  station or landfill gate** — the same weighbridge that generates the disposal
+  charge on your invoice [1].
+
+  - **General waste** mostly goes to landfill; some facilities recover metals and
+    timber first [2].
+  - **Green waste** is usually composted or mulched rather than landfilled, and is
+    cheaper to dispose of — which is why green-waste bins are cheaper to hire [1].
+  - **Concrete, brick, soil** go to construction-and-demolition recyclers where
+    available; clean loads avoid contamination fees.
+  - **Contaminated loads** (general waste mixed into a green-waste bin, or hazardous
+    items anywhere) attract surcharges or rejection at the gate.
+
+  **Cost lever:** separating green waste and heavy inert material before pickup is
+  the single biggest way to avoid gate-fee surprises.
+
+  ### Source register
+  1. [Queensland waste levy — Business Queensland](https://www.business.qld.gov.au/running-business/environment/waste-management/waste-levy)
+  2. [Queensland waste management facilities — open data](https://www.data.qld.gov.au/dataset/waste-management-facilities)
+
+delivery_speed: |
+  Most providers in a metro area like Brisbane can deliver **next-day**, and many
+  offer **same-day** if you book before late morning [1]. Things that slow it down:
+
+  - **Permits.** If the bin goes on the street and needs council approval, add
+    processing days — Brisbane permits are handled before placement [2].
+  - **Peak seasons.** Storm cleanups and pre-Christmas weeks compress availability.
+  - **Access constraints.** Narrow driveways, overhead wires, slopes and unlevel
+    ground can rule out delivery spots and force a rearrangement.
+  - **Size availability.** Less common sizes (10m³+) may be back-ordered locally.
+
+  **Practical order:** if you need it fast, book a driveway placement for a common
+  size, morning of the previous day, and confirm the delivery window when paying.
+
+  ### Source register
+  1. [Skip bin waste types and hiring basics](/research/skip-vs-junk-removal.html)
+  2. [Brisbane City Council skip bin permits](https://www.brisbane.qld.gov.au/planning-and-building/building-and-renovating/skip-bins)
+
+which_bin_basics: |
+  Brisbane-area households juggle up to three wheelie bins — and the rules genuinely
+  change when you cross a council border. 1 in 4 Australians report finding the
+  recycling system confusing [1].
+
+  ### The three bins (typical SEQ setup)
+
+  - **General waste (red or dark lid):** landfill-bound. Soft plastics, nappies,
+    polystyrene, broken ceramics — the stuff no processor wants.
+  - **Recycling (yellow lid):** containers and paper/cardboard. Empty, loose
+    (not bagged), and clean-ish. Bagged recycling is treated as contamination.
+  - **Garden organics (green lid):** lawn clippings, branches, leaves. Some SEQ
+    councils are moving to **FOGO** (food organics + garden organics), which adds
+    food scraps — check your council before adding food to green.
+
+  ### The classic confusion items
+
+  | Item | Usual answer | Why |
+  |---|---|---|
+  | Pizza box | Recycle if clean; grease-soaked parts to general waste | Grease contaminates paper fibre |
+  | Soft plastics (bags, wrap) | General waste in most areas | Not accepted kerbside; some supermarkets take them |
+  | Batteries | Never kerbside — fire risk | Drop-off points at libraries/tip shops |
+  | Nappies | General waste, bagged | No processor accepts them kerbside |
+  | Clothing/textiles | Donation bins first; worn-out to general waste | Kerbside recycling can't take textiles |
+  | E-waste (TVs, laptops) | Never kerbside | Council drop-off events / transfer stations |
+
+  Residents also report overflow pressure: one Sydney household's "unrecyclable"
+  weekly load didn't even fit one red bin [2], and contaminated recycling gets
+  whole loads dumped when too much is mixed in [3]. The fix is boring but real:
+  sort at the bin, keep recycling loose and unbagged, and check your own council's
+  A-Z before guessing.
+
+  ### Source register
+  1. [Guardian Australia — "bin sins": 1 in 4 find recycling confusing (15 Aug 2026)](https://www.theguardian.com/environment/2026/aug/15/bin-sins-australia-recycling-confusion)
+  2. [X — @roodave, 27 Aug 2026](https://x.com/roodave)
+  3. [X — @aussiewongm, 26 Aug 2026](https://x.com/aussiewongm)
+
+missed_bin: |
+  A missed bin collection is one of the most common bin complaints in Brisbane —
+  and reports have been rising: "missed bin reports have been exploding in Brisbane
+  each year since 2022. Basics aren't being done" [1].
+
+  ### What to do, in order
+
+  1. **Check the calendar first.** Public holidays shift collection days by one
+     (or to the next service day). Confirm your day on your council's bin-day page.
+  2. **Check placement.** Bin out by the night before, wheels to the kerb, 30cm+
+     gap from cars/other bins, lid closed, not overfilled. Overfull or blocked bins
+     can legally be skipped.
+  3. **Report it to your council the same day.** All SEQ councils take missed-bin
+     reports online or by phone. The cutoff matters: report within ~24-48h of
+     collection day and crews usually come back within a day or two; later reports
+     can mean waiting until your next scheduled collection.
+  4. **If it keeps happening**, log each report — councils use repeat reports to
+     fix route problems with their contractors.
+
+  ### Why it spikes
+  Contractor shortages, route changes after FOGO rollouts, and post-holiday volume
+  all drive missed collections [1] [2].
+
+  ### Source register
+  1. [X — @paulytaylor_d, 26 Aug 2026](https://x.com/paulytaylor_d)
+  2. [Yahoo News — Rockingham FOGO bin confusion (30 Jun 2026)](https://au.news.yahoo.com)

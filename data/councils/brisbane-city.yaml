@@ -1,0 +1,27 @@
+# Brisbane skip bin facts. Every figure traces to a URL in `sources`.
+# Unknowns stay marked so they can't leak into pages as fake precision.
+council: Brisbane City Council
+council_slug: brisbane-city
+region: SEQ
+population_band: "1.2M+"
+permit_required: true
+permit_fee: "check council page"
+permit_fee_verified: false
+placement_rules: |
+  Bins on the road or footpath need a council permit; on your own property (driveway/yard) generally no permit.
+  Council processes permits with a lead time — order ahead. Place bins to keep 3m clear footpath width where practicable.
+permit_url: "https://www.brisbane.qld.gov.au/planning-and-building/building-and-renovating/skip-bins"
+kerb_collection_days: "check council page"
+kerb_verified: false
+weight_limits: "Size-dependent; check with your supplier at booking"
+price_band_m3:
+  "2m³": [220, 320]
+  "3m³": [260, 380]
+  "4m³": [300, 440]
+  "6m³": [380, 560]
+  "8m³": [460, 660]
+price_band_verified: false
+price_band_basis: "indicative market band compiled from provider listed prices at build time; verify at booking"
+sources:
+  - "https://www.brisbane.qld.gov.au/planning-and-building/building-and-renovating/skip-bins"
+  - "https://www.data.qld.gov.au/dataset/waste-management-facilities"

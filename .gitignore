@@ -1,0 +1,8 @@
+# Private working files — never published
+meta/outreach/
+research/
+meta/build-state.json
+research_run.log
+grok_search.py.meta.json
+__pycache__/
+site/.nojekyll

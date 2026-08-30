@@ -1,0 +1,19 @@
+council: Moreton Bay City Council
+council_slug: moreton-bay
+region: SEQ
+population_band: "500k+"
+permit_required: "check council"
+permit_fee: "not verified"
+permit_fee_verified: false
+placement_rules: "Not yet researched - nightly research pass fills this."
+permit_url: "https://www.moretonbay.qld.gov.au/Services/Waste-and-Recycling"
+bin_day_lookup: "https://www.moretonbay.qld.gov.au/Services/Waste-and-Recycling/Bins-and-Collections"
+bin_day_lookup_verified: false
+hard_rubbish: "council runs kerbside collection program - dates by suburb, verify"
+hard_rubbish_verified: false
+weight_limits: "unknown"
+price_band_m3: {}
+price_band_verified: false
+price_band_basis: "no verified band yet"
+sources:
+  - "https://www.moretonbay.qld.gov.au/Services/Waste-and-Recycling"
