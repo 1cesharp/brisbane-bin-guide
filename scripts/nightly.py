@@ -74,6 +74,8 @@ def main() -> None:
         return
 
     body = Path(ROOT / "research" / "pages" / f"{slug}.md").read_text()
+    # normalise Grok citation style [[1]](url) -> [1](url) for the mini-markdown renderer
+    body = re.sub(r"\[\[(\d+)\]\]\(([^)]+)\)", r"[\1](\2)", body)
     if body.startswith("RESEARCH_FAILED"):
         topics = yaml.safe_load(BACKLOG.read_text())
         topics[idx]["done"] = True
