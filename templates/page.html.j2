@@ -45,7 +45,7 @@ footer.site{color:var(--mut);font-size:.8rem;max-width:960px;margin:0 auto;paddi
 <nav class="crumbs"><a href="{{ base_url }}/">Home</a>{% for c in crumbs %} › <a href="{{ c.url }}">{{ c.label }}</a>{% endfor %}</nav>
 <h1>{{ h1 }}</h1>
 <p class="updated">Updated {{ build_date }} · sources checked at build time</p>
-{{ body }}
+{{ body | safe }}
 <div class="disclosure">{{ affiliate_disclosure }}</div>
 </main>
 <footer class="site">{{ site_name }} · bin days, which bin, hard rubbish &amp; skip permits · Rebuilt nightly by an agent · <a href="{{ base_url }}/about.html" style="color:inherit">About &amp; contact</a></footer>
