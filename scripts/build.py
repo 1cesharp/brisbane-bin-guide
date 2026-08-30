@@ -24,7 +24,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-SITE = ROOT / "site"
+SITE = ROOT / "docs"  # GitHub Pages legacy source path /docs
 STATE = ROOT / "meta" / "build-state.json"
 
 
