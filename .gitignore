@@ -1,6 +1,6 @@
-# Private working files — never published
-meta/outreach/
-research/
-meta/build-state.json
+# Private working files — never published (anchored to repo root!)
+/research/
+/meta/outreach/
+/meta/build-state.json
 research_run.log
 __pycache__/
