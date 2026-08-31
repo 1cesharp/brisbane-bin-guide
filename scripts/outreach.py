@@ -6,10 +6,10 @@ the caps in meta/outreach/caps.yaml. The nightly agent:
   1. calls `outreach.py status` to see what's allowed tonight
   2. drafts/appends first-contact rows via `outreach.py add`
   3. marks sends via `outreach.py sent <id> <thread>`
-  4. after reading Gmail, records replies via `outreach.py reply <id> <note>`
+  4. after reading AgentMail, records replies via `outreach.py reply <id> <note>`
 
-Nothing here sends email — sending happens through the NUC gws route and is
-logged here afterwards.
+Nothing here sends email — send through authenticated AgentMail as
+Mary | Brisbane Bin Guide <mary-brisbane@agentmail.to>, then log it here.
 """
 from __future__ import annotations
 

@@ -18,6 +18,7 @@ import re
 import sys
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 import jinja2
 import yaml
@@ -30,16 +31,34 @@ STATE = ROOT / "meta" / "build-state.json"
 
 # ---------- tiny markdown renderer (deterministic, no deps) ----------
 
-def _inline(s: str) -> str:
+def _site_url(href: str, base_url: str | None = None) -> str:
+    if base_url and href.startswith("/") and not href.startswith("//"):
+        return base_url.rstrip("/") + href
+    return href
+
+
+def _localise_html_links(fragment: str, base_url: str | None = None) -> str:
+    def localise_link(match: re.Match[str]) -> str:
+        return f"{match.group(1)}{_site_url(match.group(2), base_url)}{match.group(3)}"
+
+    return re.sub(r'''(\b(?:href|src)=["'])(/[^"']*?)(["'])''', localise_link, fragment)
+
+
+def _inline(s: str, base_url: str | None = None) -> str:
     s = html.escape(s, quote=False)
-    s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', s)
+
+    def localise_link(match: re.Match[str]) -> str:
+        href = _site_url(match.group(2), base_url)
+        return f'<a href="{href}">{match.group(1)}</a>'
+
+    s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", localise_link, s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", s)
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
     return s
 
 
-def md(text: str) -> str:
+def md(text: str, base_url: str | None = None) -> str:
     out: list[str] = []
     lines = text.split("\n")
     i = 0
@@ -51,7 +70,7 @@ def md(text: str) -> str:
         m = re.match(r"^(#{2,4})\s+(.*)$", ln)
         if m:
             lvl = len(m.group(1)) + 0
-            out.append(f"<h{lvl}>{_inline(m.group(2))}</h{lvl}>")
+            out.append(f"<h{lvl}>{_inline(m.group(2), base_url)}</h{lvl}>")
             i += 1
             continue
         if ln.lstrip().startswith("|") and i + 1 < len(lines) and re.match(r"^\s*\|[\s:|-]+\|\s*$", lines[i + 1]):
@@ -62,10 +81,10 @@ def md(text: str) -> str:
                 rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")])
                 i += 1
             out.append('<div style="overflow-x:auto"><table><thead><tr>')
-            out.extend(f"<th>{_inline(c)}</th>" for c in hdr)
+            out.extend(f"<th>{_inline(c, base_url)}</th>" for c in hdr)
             out.append("</tr></thead><tbody>")
             for r in rows:
-                out.append("<tr>" + "".join(f"<td>{_inline(c)}</td>" for c in r) + "</tr>")
+                out.append("<tr>" + "".join(f"<td>{_inline(c, base_url)}</td>" for c in r) + "</tr>")
             out.append("</tbody></table></div>")
             continue
         if re.match(r"^\s*[-*]\s+", ln):
@@ -73,27 +92,38 @@ def md(text: str) -> str:
             while i < len(lines) and re.match(r"^\s*[-*]\s+", lines[i]):
                 items.append(re.sub(r"^\s*[-*]\s+", "", lines[i]))
                 i += 1
-            out.append("<ul>" + "".join(f"<li>{_inline(x)}</li>" for x in items) + "</ul>")
+            out.append("<ul>" + "".join(f"<li>{_inline(x, base_url)}</li>" for x in items) + "</ul>")
             continue
         if re.match(r"^\s*\d+\.\s+", ln):
             items = []
             while i < len(lines) and re.match(r"^\s*\d+\.\s+", lines[i]):
-                items.append(re.sub(r"^\s*\d+\.\s+", "", lines[i]))
+                item = re.sub(r"^\s*\d+\.\s+", "", lines[i]).strip()
                 i += 1
-            out.append("<ol>" + "".join(f"<li>{_inline(x)}</li>" for x in items) + "</ol>")
+                continuation = []
+                while (
+                    i < len(lines)
+                    and lines[i].strip()
+                    and not re.match(r"^(#{2,4}\s|\s*[-*]\s+|\s*\d+\.\s+|\s*\|)", lines[i])
+                ):
+                    continuation.append(lines[i].strip())
+                    i += 1
+                if continuation:
+                    item += " " + " ".join(continuation)
+                items.append(item)
+            out.append("<ol>" + "".join(f"<li>{_inline(x, base_url)}</li>" for x in items) + "</ol>")
             continue
         if re.match(r"^\s*>", ln):
             quote = []
             while i < len(lines) and re.match(r"^\s*>", lines[i]):
                 quote.append(re.sub(r"^\s*>\s?", "", lines[i]))
                 i += 1
-            out.append("<blockquote>" + _inline(" ".join(quote)) + "</blockquote>")
+            out.append("<blockquote>" + _inline(" ".join(quote), base_url) + "</blockquote>")
             continue
         para = []
         while i < len(lines) and lines[i].strip() and not re.match(r"^(#{2,4}\s|\s*[-*]\s|\s*\d+\.\s|\s*\|)", lines[i]):
             para.append(lines[i].strip())
             i += 1
-        out.append("<p>" + _inline(" ".join(para)) + "</p>")
+        out.append("<p>" + _inline(" ".join(para), base_url) + "</p>")
     return "\n".join(out)
 
 
@@ -101,6 +131,80 @@ def md(text: str) -> str:
 
 def load_yaml(p: Path):
     return yaml.safe_load(p.read_text()) or {}
+
+
+def _is_absolute_http_url(value) -> bool:
+    if not isinstance(value, str):
+        return False
+    parsed = urlparse(value)
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def validate_council_config(d: dict, filename: str = "council.yaml") -> list[str]:
+    """Return human-readable errors for a council fixture before rendering it."""
+    errors = []
+    slug = d.get("council_slug")
+    if not isinstance(slug, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+        errors.append(f"{filename}: council_slug must be lowercase URL-safe slug")
+    if not isinstance(d.get("council"), str) or not d["council"].strip():
+        errors.append(f"{filename}: council must be a non-empty string")
+    if d.get("permit_required") not in {True, False, "check council"}:
+        errors.append(f"{filename}: permit_required must be true, false, or 'check council'")
+    if not _is_absolute_http_url(d.get("permit_url")):
+        errors.append(f"{filename}: permit_url must be an absolute http(s) URL")
+    sources = d.get("sources")
+    if not isinstance(sources, list) or not sources or not all(_is_absolute_http_url(s) for s in sources):
+        errors.append(f"{filename}: sources must contain at least one absolute http(s) URL")
+    return errors
+
+
+def validate_all_council_configs() -> None:
+    errors = []
+    for p in sorted((DATA / "councils").glob("*.yaml")):
+        errors.extend(validate_council_config(load_yaml(p), p.name))
+    if errors:
+        raise SystemExit("Council configuration validation failed:\n- " + "\n- ".join(errors))
+
+
+def validate_council_build(d: dict, rendered_html: str, filename: str = "council.yaml") -> list[str]:
+    """Return errors for required identity and provenance in a rendered page."""
+    errors = []
+    council = str(d.get("council", "")).strip()
+    if not council or council not in rendered_html:
+        errors.append(f"{filename}: rendered page is missing council identity")
+    official_urls = [d.get("permit_url"), *(d.get("sources") or [])]
+    if not any(isinstance(url, str) and url in rendered_html for url in official_urls):
+        errors.append(f"{filename}: rendered page is missing an official source link")
+    return errors
+
+
+def validate_all_council_builds() -> None:
+    """Render each council fixture and fail if its page loses key facts."""
+    cfg = load_yaml(ROOT / "config.yaml")
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(str(ROOT / "templates")),
+        autoescape=True,
+    )
+    tpl = env.get_template("page.html.j2")
+    errors = []
+    for p in sorted((DATA / "councils").glob("*.yaml")):
+        d = load_yaml(p)
+        slug = d.get("council_slug") or p.stem
+        rendered = tpl.render(
+            site_name=cfg["site_name"],
+            base_url=cfg["base_url"].rstrip("/"),
+            build_date="validation",
+            page_title=f"Skip bins in {d.get('council', slug)} — permits, sizes, prices",
+            meta_description="validation",
+            canonical=f"{cfg['base_url'].rstrip('/')}/councils/{slug}.html",
+            crumbs=crumbs_for(f"councils/{slug}.html", cfg),
+            h1=f"Skip bins in {d.get('council', slug)}",
+            body=council_page_body(d, base_url=cfg["base_url"].rstrip("/")),
+            affiliate_disclosure=cfg.get("affiliate_disclosure", ""),
+        )
+        errors.extend(validate_council_build(d, rendered, p.name))
+    if errors:
+        raise SystemExit("Council build validation failed:\n- " + "\n- ".join(errors))
 
 
 def council_rows(cfg) -> list[dict]:
@@ -143,12 +247,12 @@ def resolve_block(key: str, render: str, cfg) -> str:
         lines = ["| Council | Permit | Permit fee | Indicative price |", "|---|---|---|---|"]
         for r in rows:
             lines.append(f"| [{r['council']}]({r['url']}) | {r['permit']} | {r['fee']} | {r['price']} |")
-        return md("\n".join(lines))
+        return md("\n".join(lines), base_url=cfg.get("base_url"))
     fname, _, ck = key.partition(":")
     if fname.endswith(".html"):
         # raw HTML fragment file (GLM tool lane)
         val = (DATA / fname).read_text()
-        return val  # render hint ignored: trusted, already HTML
+        return _localise_html_links(val, cfg.get("base_url"))  # trusted, already HTML
     if key.startswith("@"):
         val = load_yaml(DATA / "research.yaml").get(key[1:])
     else:
@@ -157,15 +261,15 @@ def resolve_block(key: str, render: str, cfg) -> str:
         raise SystemExit(f"block {key} not found")
     if render == "list":
         items = "\n".join(f"- {v}" for v in val)
-        return md(items)
+        return md(items, base_url=cfg.get("base_url"))
     if render == "table":
         raise SystemExit("generic table render not supported; use @council_table or markdown")
-    return md(str(val))
+    return md(str(val), base_url=cfg.get("base_url"))
 
 
 # ---------- build ----------
 
-def council_page_body(d: dict) -> str:
+def council_page_body(d: dict, base_url: str | None = None) -> str:
     """Render a council detail page body from its data dict. Unknowns stay visible."""
     lines: list[str] = []
     permit = d.get("permit_required")
@@ -176,7 +280,7 @@ def council_page_body(d: dict) -> str:
     else:
         lines.append('<p><span class="badge grey">Permit status: check council</span></p>')
     lines.append("## Placement rules\n")
-    lines.append(md(d.get("placement_rules", "Not yet researched.")))
+    lines.append(md(d.get("placement_rules", "Not yet researched."), base_url=base_url))
     lines.append("\n## Permit\n")
     fee = d.get("permit_fee") or "not verified"
     flag = "" if d.get("permit_fee_verified") else ' <span class="badge grey">not yet verified</span>'
@@ -191,7 +295,7 @@ def council_page_body(d: dict) -> str:
             v = band[size]
             if isinstance(v, list) and len(v) == 2:
                 rows.append(f"| {size} | ${v[0]}–${v[1]} |")
-        lines.append(md("\n".join(rows)))
+        lines.append(md("\n".join(rows), base_url=base_url))
         flag2 = "" if d.get("price_band_verified") else ' <span class="badge grey">indicative band — verify at booking</span>'
         lines.append(f"<p>{html.escape(str(d.get('price_band_basis', '')))}{flag2}</p>")
     else:
@@ -213,12 +317,14 @@ def crumbs_for(path: str, cfg) -> list[dict]:
     if len(parts) > 1:
         section = parts[0]
         label = {"councils": "Councils", "research": "Research"}.get(section, section.title())
-        crumbs.append({"url": f"/{section}/", "label": label})
+        crumbs.append({"url": f"{cfg['base_url'].rstrip('/')}/{section}/", "label": label})
     return crumbs
 
 
 def main() -> None:
     cfg = load_yaml(ROOT / "config.yaml")
+    validate_all_council_configs()
+    validate_all_council_builds()
     queue = load_yaml(ROOT / "meta" / "content-queue.yaml")
     env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(str(ROOT / "templates")),
@@ -260,7 +366,7 @@ def main() -> None:
         rel = f"councils/{slug}.html"
         if rel in built:
             continue
-        body = council_page_body(d)
+        body = council_page_body(d, base_url=base)
         page = tpl.render(
             site_name=cfg["site_name"],
             base_url=base,
@@ -294,7 +400,8 @@ def main() -> None:
             "them. That never changes the data: rules and permit facts come from councils, "
             "not from advertisers.\n\n"
             "**Contact.** Corrections welcome — the site is maintained as part of a small "
-            "automation experiment and can be reached via the operator's contact on file."
+            "automation experiment and can be reached via the operator's contact on file.",
+            base_url=base,
         )
         page = tpl.render(
             site_name=cfg["site_name"],

@@ -110,6 +110,22 @@ def main() -> None:
         print(f"Nightly {today}: PUBLISHED https://1cesharp.github.io/brisbane-bin-guide/guides/{slug}.html")
         print(f"  '{topic}' ({len(body.split())} words, source register included)")
 
+    # GLM tool lane: up to 3 calculator/reference pages per run (free model, design system)
+    try:
+        built_any = 0
+        for _ in range(3):
+            out2 = sh([sys.executable, "scripts/glm_lane.py"], timeout=300)
+            for ln in out2.splitlines():
+                if "PUBLISHED" in ln:
+                    print("🧮 " + ln.strip())
+                    built_any += 1
+                elif "nothing queued" in ln:
+                    print("🧮 " + ln.strip())
+            if "nothing queued" in out2:
+                break
+    except Exception as e:  # noqa: BLE001
+        print(f"🧮 GLM lane failed: {e}")
+
     # outreach status line
     try:
         st = json.loads(sh([sys.executable, "scripts/outreach.py", "status"], timeout=30))

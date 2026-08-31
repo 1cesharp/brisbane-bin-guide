@@ -10,9 +10,10 @@ permit_fee_verified: false
 placement_rules: |
   Bins on the road or footpath need a council permit; on your own property (driveway/yard) generally no permit.
   Council processes permits with a lead time — order ahead. Place bins to keep 3m clear footpath width where practicable.
-permit_url: "https://www.brisbane.qld.gov.au/planning-and-building/building-and-renovating/skip-bins"
+permit_url: "https://www.brisbane.qld.gov.au/transport-and-parking/traffic-management-and-safety/footpath-works-and-permits"
 kerb_collection_days: "check council page"
 kerb_verified: false
+bin_day_lookup: "https://www.brisbane.qld.gov.au/bins-waste-and-recycling/waste-and-recycling-bins/bin-collections"
 weight_limits: "Size-dependent; check with your supplier at booking"
 price_band_m3:
   "2m³": [220, 320]
@@ -23,5 +24,5 @@ price_band_m3:
 price_band_verified: false
 price_band_basis: "indicative market band compiled from provider listed prices at build time; verify at booking"
 sources:
-  - "https://www.brisbane.qld.gov.au/planning-and-building/building-and-renovating/skip-bins"
-  - "https://www.data.qld.gov.au/dataset/waste-management-facilities"
+  - "https://www.brisbane.qld.gov.au/transport-and-parking/traffic-management-and-safety/footpath-works-and-permits"
+  - "https://www.brisbane.qld.gov.au/bins-waste-and-recycling"

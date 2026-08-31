@@ -7,7 +7,7 @@ permit_fee: "not verified"
 permit_fee_verified: false
 placement_rules: "Not yet researched - nightly research pass fills this."
 permit_url: "https://www.goldcoast.qld.gov.au/Services/Waste-recycling"
-bin_day_lookup: "https://www.goldcoast.qld.gov.au/Services/Waste-recycling/Bin-collection-days"
+bin_day_lookup: "https://goldcoast.qld.gov.au/Services/Waste-recycling/Find-my-bin-day"
 bin_day_lookup_verified: false
 hard_rubbish: "council runs kerbside bulk collection - verify current process"
 hard_rubbish_verified: false

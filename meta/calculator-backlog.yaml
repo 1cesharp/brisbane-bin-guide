@@ -1,85 +1,173 @@
+# -*- coding: yaml -*-
+# GLM-built tool/reference pages (no live research needed — plan-driven, uses
+# site's existing sourced data + evergreen physics/maths). 2 per shift.
 - slug: skip-size-calculator
-  title: Skip bin size calculator — what size skip do I need?
-  meta_description: Enter your junk pile in wheelbarrow or trailer loads and get the
-    skip bin size in cubic metres — with the size you'll actually be told to book.
+  title: "Skip bin size calculator — what size skip do I need?"
+  meta_description: "Enter your junk in wheelbarrow or trailer loads; get the skip bin size in cubic metres you'll actually be told to book."
   kind: calculator
-  plan: 'Build an interactive skip size calculator: inputs = number of wheelbarrow
-    loads,
-
-    trailer loads, bulky items (couch, mattress, fridge) ticked; output = estimated
-    m³,
-
-    recommended bin size (2/3/4/6/8/10m³) with headroom advice, and weight warning
-    for
-
-    heavy waste. Include an embeddable widget note and an FAQ block targeting
-
-    "what size skip do I need" long-tail.
-
-    '
+  plan: |
+    Interactive skip size calculator: inputs = wheelbarrow loads, trailer loads,
+    bulky item checkboxes (couch, mattress, fridge, wardrobe); output = estimated m3,
+    recommended bin size (2/3/4/6/8/10m3) with headroom advice, weight warning for
+    heavy waste. FAQ block targeting "what size skip do I need" long-tail.
   status: done
-- slug: skip-permit-cost-calculator
-  title: Skip permit cost calculator — will you need one and what will it cost?
-  meta_description: Answer where the skip will sit and how long you need it; get whether
-    a Brisbane-area council permit is needed and what to budget.
+
+- slug: wheelie-bin-volume-converter
+  title: "Wheelie bin litres converter: 80L vs 120L vs 240L vs 360L"
+  meta_description: "Convert wheelie bin litres into wheelbarrow loads, trailer loads and junk-pile equivalents — with a printable capacity cheat sheet."
   kind: calculator
-  plan: 'Interactive decision tool: placement (driveway/street/nature strip), council
-
-    dropdown (5 SEQ councils), duration. Output = permit needed y/n, cost guidance
-
-    (linked to council page; ''not yet verified'' if fee unverified), application
-
-    lead-time advice. Data feeds from data/councils/*.yaml so it stays in sync.
-
-    '
+  plan: |
+    Litres converter: pick bin size (80/120/240/360L) -> show wheelbarrow loads
+    (standard 60L), 9x4 trailer loads (0.6m3), and junk equivalents (bin bags,
+    couches). Include dimension table (typical AU wheelie bin HxWxD) and a
+    'which size is my bin' visual-ID guide (lid colour/lift-bar hints).
   status: queued
-- slug: wheelie-bin-volume-guide
-  title: 'Wheelie bin sizes and volumes: 80L vs 120L vs 240L vs 360L'
-  meta_description: Litres to junk maths for every wheelie bin size, with real-world
-    equivalents and a printable capacity cheat sheet.
+
+- slug: trailer-loads-to-skip-calculator
+  title: "Trailer loads to skip bin size calculator"
+  meta_description: "How many trailer loads fit in each skip bin size? Convert your trailer trips into the right skip and see when the skip actually wins."
+  kind: calculator
+  plan: |
+    Inputs: trailer size (6x4 = 0.6m3, 7x4 = 0.9m3, 8x5 = 1.2m3), number of level
+    loads (warn heaped loads add 30-50%), waste type (general/green/heavy).
+    Output: total m3, recommended skip, trips saved, and a note on when multiple
+    tip runs beat one skip (heavy waste + small volumes).
+  status: queued
+
+- slug: skip-vs-tip-run-comparison
+  title: "Skip bin vs tip run calculator: which is cheaper for your junk?"
+  meta_description: "Compare a skip bin against DIY tip runs — fuel, trailer, time and gate fees considered. Honest maths, not marketing."
+  kind: calculator
+  plan: |
+    Inputs: volume m3, waste type, distance to tip (km), car/trailer fuel L/100km,
+    fuel price (pre-filled AU average, editable, marked indicative), your hourly
+    value. Output: DIY cost estimate vs indicative skip band (grey-badge unverified),
+    plus time comparison table. Heavy note: weight limits can flip the answer.
+  status: queued
+
+- slug: renovation-waste-estimator
+  title: "Renovation waste calculator: skip size by project"
+  meta_description: "Bathroom, kitchen, deck or whole-house reno — estimate the skip size from project type and rooms, with heavy-waste warnings."
+  kind: calculator
+  plan: |
+    Project picker (bathroom/kitchen/deck/fence/garden/whole-house + rooms count)
+    -> m3 estimate table (industry rule-of-thumb ranges, stated as rules of thumb),
+    recommended bin, split of heavy vs general waste, and sequencing tip (heavy
+    first = weight issues; hire separate heavy bin if concrete/tiles).
+  status: queued
+
+- slug: moving-house-declutter-checklist
+  title: "Moving house declutter checklist (room by room, with skip maths)"
+  meta_description: "The room-by-room pre-move declutter checklist, and how to work out the skip size for a full household clear-out."
   kind: reference
-  plan: 'Reference page with an inline converter (litres -> wheelbarrows -> trailer
-    loads).
-
-    Evergreen explainer; cross-links the skip size calculator.
-
-    '
+  plan: |
+    Interactive checklist (checkboxes per room/item category) + running junk m3
+    estimate that feeds a bin-size recommendation. Include what can be donated,
+    what councils take free, and e-waste rules. Static, no invented fees.
   status: queued
-- slug: council-fee-comparison
-  title: SEQ council waste fees compared (where published)
-  meta_description: Published council waste fees side by side — only figures with
-    an official source; gaps shown as not-yet-verified.
-  kind: data-table
-  plan: 'Data table generated from data/councils/*.yaml fee fields (each row cites
-    its
 
-    council source URL; unverified ones show a badge). Auto-updates as nightly
-
-    research fills fees. This is the ''boring table people screenshot'' page.
-
-    '
-  status: queued
-- slug: how-long-does-a-skip-take-to-fill
-  title: How long does a skip take to fill? Renovation timelines by project size
-  meta_description: 'Bathroom reno, garden cleanup, garage clearout: how many days
-    each fill takes and whether hire periods line up.'
+- slug: green-waste-to-mulch-guide
+  title: "Green waste: what councils accept and how to cut your green bin volume"
+  meta_description: "What goes in FOGO/green bins across SEQ, mulching and composting basics, and when a green-waste skip is worth it."
   kind: reference
-  plan: 'Guide with a simple fill-time estimator (rooms/projects -> days), internal
-    links
-
-    to calculators and council pages. Adds dwell time; targets reno-season queries.
-
-    '
+  plan: |
+    Green-waste guide: accepted/not-accepted lists (typical SEQ), grasscycling,
+    home compost vs council FOGO, palm fronds/bamboo problems, and when a bulk
+    green skip beats weeks of bin overflows. Link councils pages + FOGO basics.
   status: queued
-- slug: fogo-council-rollout-tracker
-  title: 'FOGO rollout tracker: which SEQ councils are doing food scraps in green
-    bins'
-  meta_description: Status of FOGO (food organics + garden organics) rollouts across
-    south-east Queensland councils, with official sources.
-  kind: data-table
-  plan: 'Tracker table: council | FOGO status | source URL | last checked. Grok verifies
 
-    status per council in the weekly pass. FOGO confusion is a proven pain driver.
+- slug: hard-rubbish-vs-skip
+  title: "Hard rubbish collection vs hiring a skip: which wins in SEQ?"
+  meta_description: "Free council hard-rubbish pickups vs paid skip bins: wait times, volume limits, what's refused, and when paying is worth it."
+  kind: reference
+  plan: |
+    Comparison: booking-free council kerbside collections (wait weeks, volume caps,
+    refused items) vs skip (instant, any volume, costs). Table by scenario
+    (mattress, sofa, renovation, deceased estate, rental bond clean). Link each
+    SEQ council hard-rubbish page from data/councils.
+  status: queued
 
-    '
+- slug: e-waste-disposal-guide
+  title: "E-waste disposal in SEQ: where TVs, laptops and batteries actually go"
+  meta_description: "Free e-waste drop-off points, why batteries never go kerbside, and data-wiping before you hand devices over."
+  kind: reference
+  plan: |
+    E-waste guide: what counts as e-waste, why kerbside bans exist (fire), free
+    drop-off options (council transfer stations, retailer programs), battery
+    fire stats framing (no invented numbers), and a data-wipe checklist. Include
+    interactive 'is this e-waste?' lookup by item name (static JS dictionary).
+  status: queued
+
+- slug: asbestos-safety-guide
+  title: "Asbestos in older homes: what you can and cannot put in a skip"
+  meta_description: "Homes built before 1990: where asbestos hides, why it can never go in a skip, and the licensed removal path."
+  kind: reference
+  plan: |
+    Safety-first guide: common asbestos locations (fibro sheeting, eaves, vinyl
+    tiles, fencing), the firm rule that it NEVER goes in a skip, licensed removal
+    requirements in QLD, and what a provider will ask you. No fear-mongering, no
+    invented fees; link QLD Health/WorkSafe QLD pages as sources.
+  status: queued
+
+- slug: skip-placement-checklist
+  title: "Skip placement checklist: driveway, street, slopes and access"
+  meta_description: "Where a skip can actually go: driveway protection, permit triggers, overhead wires, slopes, and the access questions providers ask."
+  kind: reference
+  plan: |
+    Placement guide with interactive pre-delivery checklist (gates width, overhead
+    wires, slope, underground services, driveway surface protection boards),
+    permit trigger summary per council (pull from data/councils), and truck
+    access rules of thumb (bin truck clearance).
+  status: queued
+
+- slug: skip-hire-glossary
+  title: "Skip hire glossary: m3, gross weight, backloading and every term explained"
+  meta_description: "Every skip bin term decoded — cubic metres, tonne allowances, prohibited items, and the charges you can avoid."
+  kind: reference
+  plan: |
+    A-Z glossary: m3, general vs heavy waste, tonne allowance, overage fees,
+    prohibited items, permit, kerbside placement, fill line, asbestos, matting,
+    backloading. Each term 2-3 sentences plain English. Links to calculators.
+  status: queued
+
+- slug: bin-liner-size-guide
+  title: "Bin liner size guide: fit liners to 80L-240L wheelie bins (and caddies)"
+  meta_description: "Which liner fits your bin? Dimension-based fit guide for kitchen caddies to 240L wheelie bins, with the bag maths per roll."
+  kind: reference
+  plan: |
+    Fit table: bin litre size -> liner dimensions (mm) -> common pack sizes ->
+    cost-per-bag formula (editable JS mini-calc, no invented retail prices —
+    leave price cells as 'enter pack price'). Tie-in: FOGO liner rules badge.
+  status: queued
+
+- slug: storm-season-cleanup-planner
+  title: "Storm season cleanup planner for SEQ yards"
+  meta_description: "Pre-storm yard prep: what to cut back, the green-waste volume maths, and storm-debris cleanup options after the event."
+  kind: reference
+  plan: |
+    Seasonal planner: pre-storm checklist (branches, loose items, gutter mulch),
+    green-waste volume estimator (tree size -> m3 ranges), council storm-debris
+    customs (free drop-off periods where councils announce them — link), and
+    when an emergency skip is justified. Mark seasonal timing (Sep-Mar SEQ).
+  status: queued
+
+- slug: rental-bond-clean-waste-guide
+  title: "Rental bond clean: junk removal options before the inspection"
+  meta_description: "End-of-lease junk: skip vs junk removal vs council pickups, timing around the inspection, and the rubbish that costs bonds."
+  kind: reference
+  plan: |
+    Renter-focused: what property managers flag (rubbish trails, old mattresses),
+    option comparison with timing (bond clocks are short — junk removal wins on
+    speed), room checklist, and documentation advice (receipts). No invented fees.
+  status: queued
+
+- slug: skip-bin-myths
+  title: "7 skip bin myths that cost people money"
+  meta_description: "Myth-busting skip hire: bigger is not always better, permits, weight surprises, and what providers actually check."
+  kind: reference
+  plan: |
+    Myth list format (7 items): 'the biggest bin is best value' (weight/idle),
+    'permits are the provider's problem', 'anything goes if it fits', 'fill above
+    the line is fine', 'all providers price the same', 'rain ruins the bin',
+    'skip bags are always cheaper'. Each: myth -> reality -> what to do.
   status: queued

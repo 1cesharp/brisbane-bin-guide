@@ -8,8 +8,8 @@ permit_fee_verified: false
 placement_rules: |
   Skips and structures on footpaths or roads require council approval; private
   property placement avoids it. Verify current process on the council page.
-permit_url: "https://www.logan.qld.gov.au/directory/vehicles-and-skip-bins-on-footpaths"
-bin_day_lookup: "https://www.logan.qld.gov.au/waste-recycling/bin-collections"
+permit_url: "https://logan.qld.gov.au/residents/neighbourhood-concerns/footpaths-and-nature-strips"
+bin_day_lookup: "https://www.logan.qld.gov.au/residents/waste-and-recycling/bins-and-waste-collection/bin-collection-day"
 bin_day_lookup_verified: false
 hard_rubbish: "booked kerbside collection - verify current booking process"
 hard_rubbish_verified: false
@@ -18,5 +18,5 @@ price_band_m3: {}
 price_band_verified: false
 price_band_basis: "no verified band yet - nightly research pass fills this"
 sources:
-  - "https://www.logan.qld.gov.au/directory/vehicles-and-skip-bins-on-footpaths"
-  - "https://www.logan.qld.gov.au/waste-recycling/bin-collections"
+  - "https://logan.qld.gov.au/residents/neighbourhood-concerns/footpaths-and-nature-strips"
+  - "https://www.logan.qld.gov.au/residents/waste-and-recycling/bins-and-waste-collection/bin-collection-day"

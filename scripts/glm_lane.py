@@ -28,7 +28,7 @@ TOOLS = ROOT / "data" / "tools"
 
 API = "https://inference-api.nousresearch.com/v1/chat/completions"
 MODEL = "z-ai/glm-5.3-flash"
-AUTH = "/home/ben/.hermes/profiles/secondbrain/auth.json"
+AUTH = "/home/hermes/.hermes/auth.json"
 
 
 def glm_call(prompt: str, timeout: float = 240.0) -> str:
@@ -96,6 +96,7 @@ def main() -> None:
     item = items[idx]
     print(f"GLM lane: building '{item['slug']}' ({item.get('kind', 'reference')})…")
 
+    design = (ROOT / "meta" / "design-system.md").read_text()
     prompt = f"""Build ONE self-contained HTML fragment for a page on an Australian bin/waste reference site.
 
 Page title: {item['title']}
@@ -103,13 +104,16 @@ Kind: {item['kind']}
 Build plan: {item['plan']}
 
 Rules:
-- Output ONLY the HTML fragment (an <h2>-led content block). No <html>/<head>/<body>, no <style>, no external assets, no frameworks.
+- Output ONLY the HTML fragment (an <h2>-led content block). No <html>/<head>/<body> tags, no external assets, no frameworks.
 - If kind=calculator: vanilla-JS interactive widget inline (ids prefixed {item['slug'].replace('-', '_')}_), works with zero network. Sensible defaults, clear output line, and a short 'how this is worked out' block.
 - Never invent dollar figures. If the plan needs a council fee that is not verified, render a grey badge 'not yet verified' instead of a number.
 - Include a short FAQ section (3-4 Q&As) targeting the long-tail searches around this tool.
 - End with a 'Related on this site' list linking to /councils/ and /research/which-bin-basics.html (relative URLs fine).
 - 300-600 words of guidance text around the widget. Australian English.
-- IMPORTANT: total output under 130 lines / under 3500 tokens. Be terse. Output the HTML directly with zero preamble.
+- IMPORTANT: total output under 130 lines / under 3500 tokens. Be terse. Output the HTML directly with zero preamble, no markdown fences.
+
+## Design system you MUST follow
+{design}
 """
     html = glm_call(prompt)
     # strip markdown fences GLM likes to add

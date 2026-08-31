@@ -8,11 +8,12 @@ permit_fee_verified: false
 placement_rules: |
   Skips on council-controlled land (road, footpath, nature strip) require council approval;
   private property placement avoids the permit. Book ahead for approval processing.
-permit_url: "https://www.ipswich.qld.gov.au/residents/waste_and_recycling/skip-bins"
+permit_url: "https://www.ipswich.qld.gov.au/Live/Waste-and-Recycling/Hire-a-Skip-Bin"
 weight_limits: "Size-dependent; confirm with supplier"
 price_band_m3: {}
 price_band_verified: false
 price_band_basis: "no verified band yet - first nightly research pass fills this"
 sources:
-  - "https://www.ipswich.qld.gov.au/residents/waste_and_recycling/skip-bins"
-  - "https://www.data.qld.gov.au/dataset/waste-management-facilities"
+  - "https://www.ipswich.qld.gov.au/Live/Waste-and-Recycling/Hire-a-Skip-Bin"
+  - "https://www.ipswich.qld.gov.au/Live/Waste-and-Recycling/Resource-Recovery-Centres"
+bin_day_lookup: "https://www.ipswich.qld.gov.au/Live/Waste-and-Recycling/Household-Waste-Services-and-Requests"

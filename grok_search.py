@@ -13,15 +13,38 @@ import time
 import urllib.error
 import urllib.request
 
-AUTH = "/home/ben/.hermes/profiles/secondbrain/auth.json"
+AUTH = "/home/hermes/.hermes/auth.json"
 API = "https://api.x.ai/v1/responses"
 MODEL = "grok-4.6"
 
 PROMPTS = {}
 
-PROMPTS["research"] = """You are doing niche research for an automated affiliate-directory business. Today is 30 August 2026.
+PROMPTS["scout"] = """You are the tool-and-idea scout for a solo operator in Brisbane, Australia running an automated content/business fleet (bin-day directory site, faceless YouTube lane, affiliate outreach). Today is {today}.
 
-Task: identify THE ONE best "boring but searched-every-day" niche for a small programmatic directory/reference site that a solo operator in Brisbane, Australia can build and monetise with affiliate/referral deals.
+Operator constraints: near-$0 running cost strongly preferred; static hosting free (GH Pages/CF); no paid domains; NUC server is CPU-only 4 cores (no GPU diffusion); free LLM workers available (GLM-5.3-Flash via Nous, Grok for research via xAI); MiniMax TTS free via GMI promo to 2026-09-06; MoneyPrinterTurbo installed. Operator has authorised up to $50 TOTAL spend on tools/API credits that unlock real capability — flag anything worth that.
+
+Use X search and web search (include Reddit) for CURRENT info. Research these lanes:
+
+## Lane 1 - Free/cheap NEW content tools (last 60 days)
+- Text-to-video / image-to-video free tiers or open-weight models that run on CPU (or have generous free API tiers). Specifically check: free lip-sync tools (the operator's missing piece), free talking-avatar generators, open-weight lip-sync (e.g. anything from the LatentSync/SadTalker/Hedra/ByteDance families with free hosting - HuggingFace Spaces, Replicate free tier, fal free credits).
+- Voice cloning free routes (MiniMax voice-clone via GMI returned 500s; find the actual working free path or a comparable free alternative).
+- Anything that turns stills into talking/presenting video free.
+For each: name, URL, what it unlocks, exact cost/free-tier limits (mark unverified where you cannot confirm), CPU/API feasibility.
+
+## Lane 2 - New boring-niche directory/tool site ideas (beyond bin days)
+- 5+ ideas meeting the same bar as bin days: searched daily or weekly by ordinary people, boring, programmatic data buildable from public sources, AU angle helpful. For each: the recurring search intent, 2+ real recent complaints/questions found in live search (platform + date), monetisation programs that exist today (name + network + URL; NEVER invent commission rates - mark unverified), and buildability.
+
+## Lane 3 - Monetisation mechanisms beyond display affiliate
+- What actually works for tiny boring utility sites in 2026: lead-gen forms, sponsored/featured listings, paid data feeds/API access, digital products (checklists/PDFs), newsletter sponsorships, council/commercial partnerships. Rank by realistic revenue-per-1000-visitors with evidence; flag speculation as speculation.
+
+## Lane 4 - Worth-$50 upgrades
+- From everything above: which 1-3 purchases (credits, tools, datasets) would most increase revenue capability for <=$50 total? Justify with expected use.
+
+Output markdown with those four ## lanes, every claim traced to a URL you actually saw, an "### Source register" at the end, and unverified items explicitly marked.
+"""
+
+
+PROMPTS["research"] = """Task: identify THE ONE best "boring but searched-every-day" niche for a small programmatic directory/reference site that a solo operator in Brisbane, Australia can build and monetise with affiliate/referral deals.
 
 Hard requirements:
 1. Boring, unsexy, chore-like territory. People search for it EVERY DAY (recurring need, not one-off research).
